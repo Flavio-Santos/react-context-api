@@ -14,6 +14,14 @@
       "tipo": "despesa",
       "categoria": "Estudos",
       "data": "2025-02-13"
+    },
+    {
+      "id": "6759",
+      "nome": "Pix",
+      "valor": "100",
+      "tipo": "receita",
+      "categoria": "Pagamentos",
+      "data": "2025-02-12"
     }
   ]
 }
