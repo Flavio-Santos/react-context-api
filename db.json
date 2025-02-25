@@ -7,5 +7,24 @@
       "orcamentoDiario": 166.66666666666666
     }
   ],
-  "transacoes": []
+  "transacoes": [
+    {
+      "id": "6ec9",
+      "nome": "Livro",
+      "valor": 40,
+      "tipo": "despesa",
+      "categoria": "Estudos",
+      "data": "2025-02-06",
+      "userId": "52e5"
+    },
+    {
+      "id": "bd67",
+      "nome": "Pix",
+      "valor": 40,
+      "tipo": "receita",
+      "categoria": "Pagamentos",
+      "data": "2025-02-06",
+      "userId": "52e5"
+    }
+  ]
 }
