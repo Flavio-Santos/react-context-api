@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import {
   Section,
   Container,
@@ -6,23 +6,37 @@ import {
   Description,
   Illustration,
   SectionWrapper,
-} from "./style.js";
-import ilustracao from "../../assets/images/ilustracao-cadastro.png";
-import { Form, useNavigate } from "react-router";
-import Botao from "../../componentes/Botao/index.js";
-import CampoTexto from "../../componentes/CampoTexto/index.js";
-import Fieldset from "../../componentes/Fieldset/index.js";
-import Label from "../../componentes/Label/index.js";
+} from './style.js';
+import ilustracao from '../../assets/images/ilustracao-cadastro.png';
+import { Form, useNavigate } from 'react-router';
+import Botao from '../../componentes/Botao/index.js';
+import CampoTexto from '../../componentes/CampoTexto/index.js';
+import Fieldset from '../../componentes/Fieldset/index.js';
+import Label from '../../componentes/Label/index.js';
+import { IUsuario } from '../../types/index.js';
+import { criarUsuario } from '../../api/index.js';
 
 const Cadastro = () => {
-  const [nome, setNome] = useState("");
-  const [renda, setRenda] = useState("");
+  const [form, setForm] = useState<Omit<IUsuario, 'id'>>({
+    nome: '',
+    renda: '0',
+  });
+
+  const inputKeyText = (campo: 'nome' | 'renda', valor: string) => {
+    setForm(prev => ({ ...prev, [campo]: valor }));
+  };
 
   const navigate = useNavigate();
 
-  const aoSubmeterFormulario = (evento: React.FormEvent) => {
+  const aoSubmeterFormulario = async (evento: React.FormEvent) => {
     evento.preventDefault();
-    navigate("/home");
+    try {
+      const response = await criarUsuario(form);
+      console.log(response);
+    } catch (error) {
+      console.error('Erro ao criar usuário:', error);
+    }
+    navigate('/home');
   };
 
   return (
@@ -37,31 +51,35 @@ const Cadastro = () => {
           </Description>
           <Form>
             <Fieldset>
-              <Label htmlFor="nome">Nome</Label>
+              <Label htmlFor='nome'>Nome</Label>
               <CampoTexto
-                type="text"
-                name="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                type='text'
+                name='nome'
+                value={form.nome}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  inputKeyText('nome', e.target.value)
+                }
               />
             </Fieldset>
             <Fieldset>
-              <Label htmlFor="renda">Renda mensal total</Label>
+              <Label htmlFor='renda'>Renda mensal total</Label>
               <CampoTexto
-                type="text"
-                name="renda"
-                value={renda}
-                onChange={(e) => setRenda(e.target.value)}
+                type='text'
+                name='renda'
+                value={form.renda}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  inputKeyText('renda', e.target.value)
+                }
               />
             </Fieldset>
           </Form>
-          <Botao $variante="primario" onClick={aoSubmeterFormulario}>
+          <Botao $variante='primario' onClick={aoSubmeterFormulario}>
             Ir para o app
           </Botao>
         </Container>
         <Illustration
           src={ilustracao}
-          alt="ilustração da tela de cadastro. Um avatar mexendo em alguns gráficos"
+          alt='ilustração da tela de cadastro. Um avatar mexendo em alguns gráficos'
         />
       </SectionWrapper>
     </Section>

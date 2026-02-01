@@ -1,11 +1,11 @@
 export interface IUsuario {
-  id: number;
+  id: string;
   nome: string;
   renda: string;
 }
 
 export interface ITransacoes {
-  id: number;
+  id: string;
   nome: string;
   valor: number;
   tipo: 'receita' | 'despesa';
