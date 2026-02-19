@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-export const obterUsuario = async (id: number): Promise<IUsuario[]> => {
+export const obterUsuario = async (): Promise<IUsuario[]> => {
   const { data } = await api.get<IUsuario[]>(`/usuarios`);
   return data;
 };
